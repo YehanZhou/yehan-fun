@@ -1,5 +1,5 @@
 {
-  "name": "next-template",
+  "name": "next-drizzle-todo",
   "version": "0.0.2",
   "private": true,
   "scripts": {
@@ -14,9 +14,11 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.9.0",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
+    "drizzle-orm": "^0.30.7",
     "lucide-react": "0.105.0-alpha.4",
     "next": "^13.4.8",
     "next-themes": "^0.2.1",
@@ -33,6 +35,8 @@
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/parser": "^5.61.0",
     "autoprefixer": "^10.4.14",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.20.14",
     "eslint": "^8.44.0",
     "eslint-config-next": "13.0.0",
     "eslint-config-prettier": "^8.8.0",
