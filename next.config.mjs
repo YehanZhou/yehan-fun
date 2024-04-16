@@ -5,6 +5,9 @@ const nextConfig = {
     appDir: true,
     serverActions: true,
   },
+  images: {
+    domains: ['cos.codefe.top'],
+  }
 }
 
 export default nextConfig

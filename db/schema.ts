@@ -16,6 +16,7 @@ export const category = pgTable("category", {
   rank: integer("rank").notNull(),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
+  // links: categoryRelations()
 });
 
 export const categoryRelations = relations(category, ({many}) => ({
@@ -26,8 +27,8 @@ export const link = pgTable("link", {
   id: integer("id").primaryKey(),
   name: text("name").notNull(),
   icon: text("icon").notNull(),
+  url: text("url").notNull(),
   description: text("description").notNull(),
-  done: boolean("done").default(false).notNull(),
   rank: integer("rank").notNull(),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
@@ -35,5 +36,12 @@ export const link = pgTable("link", {
   status: integer("status").default(1).notNull(),
   categoryId: integer("category_id").notNull().references(()=>category.id),
 });
+
+export const linkRelations = relations(link, ({ one }) => ({
+  author: one(category, {
+    fields: [link.id],
+    references: [category.id],
+  }),
+}));
 
 

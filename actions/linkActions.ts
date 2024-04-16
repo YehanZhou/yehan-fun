@@ -1,47 +1,57 @@
 "use server";
-import {eq,not,asc} from "drizzle-orm";
+import {eq,asc} from "drizzle-orm";
 import {revalidatePath} from "next/cache";
 
 import db from "@/db/drizzle";
-import {todo} from "@/db/schema";
+import {category,link} from "@/db/schema";
+import { CategoryInterface } from "@/types/category";
+import { LinkInterface } from "@/types/link";
 
-export const getData = async () => {
-    const data = await db.select().from(todo).orderBy(asc(todo.id));
+export const getLinksByCategoryId = async (categoryId:number) => {
+  const links: LinkInterface[] = await db.select().from(link).orderBy(asc(link.id)).where(eq(link.categoryId, categoryId));
+  return links;
+}
+export const addLink = async (params: any) => {
+  await db.insert(link).values(params);
+  revalidatePath("/");
+};
+
+export const deleteLink = async (id: number) => {
+  await db.delete(link).where(eq(link.id, id));
+  revalidatePath("/");
+};
+
+export const editLink = async (id: number, params: any) => {
+  await db
+    .update(link)
+    .set(params)
+    .where(eq(link.id, id));
+
+  revalidatePath("/");
+};
+
+export const getCategories = async () => {
+    const data: CategoryInterface[] = await db.select().from(category).orderBy(asc(category.id));
+    // const dataLink:Category[] = data.map(async item => ({...item, links: await getLinksByCategoryId(item.id)}))
     return data;
 };
 
-export const addTodo = async (id: number, text: string) => {
-  await db.insert(todo).values({
-    id: id,
-    text: text,
-  });
+export const addCategory = async (params: CategoryInterface) => {
+  await db.insert(category).values(params);
   revalidatePath("/");
 };
 
-export const deleteTodo = async (id: number) => {
-  await db.delete(todo).where(eq(todo.id, id));
-
+export const deleteCategory = async (id: number) => {
+  await db.delete(category).where(eq(category.id, id));
   revalidatePath("/");
 };
 
-export const toggleTodo = async (id: number) => {
+
+export const editCategory = async (id: number, params: any) => {
   await db
-    .update(todo)
-    .set({
-      done: not(todo.done),
-    })
-    .where(eq(todo.id, id));
-
-  revalidatePath("/");
-};
-
-export const editTodo = async (id: number, text: string) => {
-  await db
-    .update(todo)
-    .set({
-      text: text,
-    })
-    .where(eq(todo.id, id));
+    .update(category)
+    .set(params)
+    .where(eq(category.id, id));
 
   revalidatePath("/");
 };
