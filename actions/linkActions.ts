@@ -55,3 +55,12 @@ export const editCategory = async (id: number, params: any) => {
 
   revalidatePath("/");
 };
+
+export const  getCateLinks = async (id: number) => {
+  const data = await db.query.category.findMany({
+    with: {
+      links: true,
+    },
+  });;
+  return data;
+}
