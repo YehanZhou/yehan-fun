@@ -13,7 +13,7 @@ export function LinkItem({ link }: { link: LinkInterface }) {
         <div className="flex items-center">
           <div className="mr-3 flex h-10 w-10 overflow-hidden rounded-full">
             {
-              link.icon 
+              link.icon && link.icon.indexOf('http') > -1
                 ? <Image
                     src={link.icon}
                     className="object-fill"

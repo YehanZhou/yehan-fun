@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { CategoryInterface } from "@/types/category"
+import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons'
+import { Button } from "@/components/ui/button"
 
 import { cn } from "@/lib/utils"
 
@@ -54,21 +56,32 @@ export function Sidebar({ className, navItems }: SidebarProps) {
                       >
                         <div className="scale relative mb-2 flex items-center gap-2 rounded-r-lg p-2 transition-colors ease-in-out before:transition-colors hover:no-underline sm:border-l-0 sm:pl-6 sm:before:absolute sm:before:left-[-5px] sm:before:top-[2px] sm:before:h-[calc(100%-4px)] sm:before:w-[10px] sm:before:rounded-full sm:before:transition-colors">
                           <div className="relative flex shrink-0">
-                            <Image
-                              src={category.icon}
-                              alt=""
-                              className="block"
-                              width={20}
-                              height={20}
-                            />
+
+                            {
+                              category.icon && category.icon.indexOf('http') > -1
+                                ? <Image
+                                    src={category.icon}
+                                    className="block"
+                                    alt=""
+                                    width={20}
+                                    height={20}
+                                  /> 
+                                : <span className="block h-5 w-5 rounded-full bg-purple-500 text-center font-bold leading-5 text-white">{ category.name.slice(0, 1) }</span>
+                            }
                           </div>
-                          <span className="truncate">
-                            {category.name}
-                          </span>
+                          <div className="flex flex-1 items-center justify-between truncate">
+                            <span>{category.name}</span>
+                            <Cross2Icon/>
+                          </div>
                         </div>
                       </div>
                     )
                   })}
+                  <div className="flex justify-center">
+                   <Button variant="outline" className="w-full">
+                    <PlusCircledIcon className="mr-2 h-4 w-4" /> Add Category
+                  </Button>
+                  </div>
                 </div>
               </div>
             </div>
