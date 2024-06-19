@@ -36,7 +36,7 @@ export function LinkItem({ link }: { link: LinkInterface }) {
 
 export function LinkContent({ navResources }: { navResources: CategoryInterface[] }) {
   return (
-    <div className="w-full pt-4">
+    <div className="w-full grow pt-4">
       <div className="mx-auto w-full px-4 md:px-6">
         {
           navResources.map((category: CategoryInterface) => {

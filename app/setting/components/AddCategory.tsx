@@ -42,6 +42,7 @@ const AddTodo: FC<Props> = ({ createCategory }) => {
     setName("");
   };
 
+
   // Rendering the AddTodo component
   return (
     <div className="mt-2 flex w-full gap-1">
