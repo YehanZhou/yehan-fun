@@ -1,20 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import {ChangeEvent, useEffect, useState } from "react"
 import Image from "next/image"
 import { CategoryInterface } from "@/types/category"
-import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons'
-import { Button } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-
+import { Cross2Icon } from '@radix-ui/react-icons'
 import { cn } from "@/lib/utils"
-
+import { addCategory } from "@/actions/linkActions";
+import AddCategory from '@/app/components/add-category'
 export interface SidebarProps {
   className?: string
   navItems: Pick<CategoryInterface, "name" | "icon" | "id">[]
@@ -23,6 +15,7 @@ export interface SidebarProps {
 export function Sidebar({ className, navItems }: SidebarProps) {
   const [activeTabId, setActiveTabId] = useState(navItems[0]?.id)
   useEffect(() => {
+    if(!activeTabId) return
     const ele = document.getElementById(activeTabId + '')
     const elePosition = ele?.getBoundingClientRect().top || 0
     const offsetPosition = elePosition + window.pageYOffset - 75
@@ -31,11 +24,7 @@ export function Sidebar({ className, navItems }: SidebarProps) {
       behavior: "smooth",
     })
   }, [activeTabId])
-    // Event handler for adding a new todo
-  const handleAdd = async () => {
-    console.log('handleAdd') 
-  }
-  
+
   return (
     <nav className="after:h-[calc(100vh - 65px)] block min-h-screen w-60 flex-row flex-nowrap bg-background font-semibold sm:px-6 sm:pb-6">
       <a
@@ -68,7 +57,7 @@ export function Sidebar({ className, navItems }: SidebarProps) {
                       >
                         <div className="scale relative mb-2 flex items-center gap-2 rounded-r-lg p-2 transition-colors ease-in-out before:transition-colors hover:no-underline sm:border-l-0 sm:pl-6 sm:before:absolute sm:before:left-[-5px] sm:before:top-[2px] sm:before:h-[calc(100%-4px)] sm:before:w-[10px] sm:before:rounded-full sm:before:transition-colors">
                           <div className="relative flex shrink-0">
-
+                            {category.id}
                             {
                               category.icon && category.icon.indexOf('http') > -1
                                 ? <Image
@@ -90,43 +79,7 @@ export function Sidebar({ className, navItems }: SidebarProps) {
                     )
                   })}
                   <div className="flex justify-center">
-                   
-                  <Popover>
-  <PopoverTrigger><Button variant="outline" className="w-full">
-                    <PlusCircledIcon className="mr-2 h-4 w-4" /> Add Category
-                  </Button></PopoverTrigger>
-  <PopoverContent>
-  <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="font-medium leading-none">Dimensions</h4>
-            <p className="text-sm text-muted-foreground">
-              Set the dimensions for the layer.
-            </p>
-          </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">Width</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="height">Height</Label>
-              <Input
-                id="height"
-                defaultValue="25px"
-                className="col-span-2 h-8"
-              />
-            </div>
-          </div>
-          <Button variant="outline" className="w-full" onClick={handleAdd}>
-            confirm
-          </Button>
-        </div>
-  </PopoverContent>
-</Popover>
+                    <AddCategory navItems={navItems}/>
                   </div>
                 </div>
               </div>
