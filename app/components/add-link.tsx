@@ -1,8 +1,8 @@
 "use client";
-import { CategoryInterface } from "@/types/category";
+import { LinkInterface } from "@/types/link";
 import { FC, useState } from "react";
 import { Input } from "@/components/ui/input"
-import { addCategory } from "@/actions/linkActions";
+import { addLink } from "@/actions/linkActions";
 import { Button } from "@/components/ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form"
 import { z } from "zod"
 
-const categoryFormSchema = z.object({
+const linkFormSchema = z.object({
   name: z
     .string()
     .min(2, {
@@ -33,37 +33,38 @@ const categoryFormSchema = z.object({
       message: "name must not be longer than 30 characters.",
     }),
   icon: z.string().optional(), // .url({ message: "Please enter a valid URL." }),
+  url: z.string().url(),
   description: z.string().optional(),
   rank: z.coerce.number().optional()
 });
 
 
-type CategoryFormValues = z.infer<typeof categoryFormSchema>
-export interface AddCategoryProps {
-  navItems: Pick<CategoryInterface, "name" | "icon" | "id">[]
+type LinkFormValues = z.infer<typeof linkFormSchema>
+export interface AddLinkProps {
+  navItems: Pick<LinkInterface, "name" | "icon" | "id">[]
 }
 
-const AddCategory: FC<AddCategoryProps> = ({navItems}) => {  
-  const form = useForm<CategoryFormValues>({
-    resolver: zodResolver(categoryFormSchema),
+const AddLink: FC<AddLinkProps> = ({navItems}) => {  
+  const form = useForm<LinkFormValues>({
+    resolver: zodResolver(linkFormSchema),
     mode: "onChange",
     
   })
 
-  const createCategory = (params: Omit<CategoryInterface, "id">) => {
+  const createLink = (params: Omit<LinkInterface, "id" | "categoryId">) => {
     const id = (navItems.at(-1)?.id || 0) + 1;
     const addItem = {
       id,
       ...params
     }
 
-    addCategory(addItem);
+    addLink(addItem);
     navItems.push(addItem)
   };
 
-  function onSubmit(data: CategoryFormValues) {
-    const parsedData = categoryFormSchema.parse(data);
-    createCategory(parsedData);
+  function onSubmit(data: LinkFormValues) {
+    const parsedData = linkFormSchema.parse(data);
+    createLink(parsedData);
   }
 
   return (
@@ -137,4 +138,4 @@ const AddCategory: FC<AddCategoryProps> = ({navItems}) => {
   );
 };
 
-export default AddCategory;
+export default AddLink;

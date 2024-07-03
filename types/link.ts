@@ -6,8 +6,8 @@ export interface LinkInterface {
     icon?: string | null; // 修改这里，允许icon为null
     description?: string | null;
     rank?: number | null;
-    public: boolean
-    status: number
+    // public: boolean
+    // status: number
     categoryId: number
 }
 

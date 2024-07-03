@@ -32,8 +32,8 @@ export const link = pgTable("link", {
   rank: integer("rank"),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
-  public: boolean("public").default(false).notNull(),
-  status: integer("status").default(1).notNull(),
+  // public: boolean("public").default(false).notNull(),
+  // status: integer("status").default(1).notNull(),
   categoryId: integer("category_id").notNull().references(()=>category.id),
 });
 
