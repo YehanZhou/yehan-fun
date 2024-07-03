@@ -11,9 +11,9 @@ export const todo = pgTable("todo", {
 export const category = pgTable("category", {
   id: integer("id").primaryKey(),
   name: text("name").notNull(),
-  icon: text("icon").notNull(),
-  description: text("description").notNull(),
-  rank: integer("rank").notNull(),
+  icon: text("icon"),
+  description: text("description"),
+  rank: integer("rank"),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
   // links: categoryRelations()
@@ -26,10 +26,10 @@ export const categoryRelations = relations(category, ({many}) => ({
 export const link = pgTable("link", {
   id: integer("id").primaryKey(),
   name: text("name").notNull(),
-  icon: text("icon").notNull(),
+  icon: text("icon"),
   url: text("url").notNull(),
-  description: text("description").notNull(),
-  rank: integer("rank").notNull(),
+  description: text("description"),
+  rank: integer("rank"),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
   public: boolean("public").default(false).notNull(),

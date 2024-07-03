@@ -1,12 +1,11 @@
 export interface LinkInterface {
     id: number
     name: string
-    icon: string
     url: string
-    description: string
-    rank: number
-    // createTime: string
-    // updateTime: string
+
+    icon?: string | null; // 修改这里，允许icon为null
+    description?: string | null;
+    rank?: number | null;
     public: boolean
     status: number
     categoryId: number

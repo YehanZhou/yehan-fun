@@ -1,11 +1,11 @@
 "use client"
 
-import {ChangeEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { CategoryInterface } from "@/types/category"
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { cn } from "@/lib/utils"
-import { addCategory } from "@/actions/linkActions";
+import { deleteCategory } from "@/actions/linkActions";
 import AddCategory from '@/app/components/add-category'
 export interface SidebarProps {
   className?: string
@@ -28,7 +28,7 @@ export function Sidebar({ className, navItems }: SidebarProps) {
   return (
     <nav className="after:h-[calc(100vh - 65px)] block min-h-screen w-60 flex-row flex-nowrap bg-background font-semibold sm:px-6 sm:pb-6">
       <a
-        href=""
+        href="/"
         className="mx-6 hidden h-16 flex-col items-center justify-center sm:flex"
       >
         <Image
@@ -57,7 +57,6 @@ export function Sidebar({ className, navItems }: SidebarProps) {
                       >
                         <div className="scale relative mb-2 flex items-center gap-2 rounded-r-lg p-2 transition-colors ease-in-out before:transition-colors hover:no-underline sm:border-l-0 sm:pl-6 sm:before:absolute sm:before:left-[-5px] sm:before:top-[2px] sm:before:h-[calc(100%-4px)] sm:before:w-[10px] sm:before:rounded-full sm:before:transition-colors">
                           <div className="relative flex shrink-0">
-                            {category.id}
                             {
                               category.icon && category.icon.indexOf('http') > -1
                                 ? <Image
@@ -72,7 +71,7 @@ export function Sidebar({ className, navItems }: SidebarProps) {
                           </div>
                           <div className="flex flex-1 items-center justify-between truncate">
                             <span>{category.name}</span>
-                            <Cross2Icon/>
+                            <Cross2Icon onClick={() => deleteCategory(category.id)}/>
                           </div>
                         </div>
                       </div>

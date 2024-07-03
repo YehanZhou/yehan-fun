@@ -34,8 +34,8 @@ const categoryFormSchema = z.object({
       message: "name must not be longer than 30 characters.",
     }),
   icon: z.string().optional(), // .url({ message: "Please enter a valid URL." }),
-  description: z.string().max(160).min(4).optional(),
-  rank: z.number().optional()
+  description: z.string().optional(),
+  rank: z.coerce.number().optional()
 });
 
 
@@ -59,7 +59,6 @@ const AddCategory: FC<AddCategoryProps> = ({navItems}) => {
     }
 
     addCategory(addItem);
-    // setCategoryItems((prev) => [...prev, addItem]);
     navItems.push(addItem)
   };
 

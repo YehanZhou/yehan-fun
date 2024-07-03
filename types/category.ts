@@ -2,7 +2,7 @@
 export interface CategoryInterface {
     id: number
     name: string
-    icon?: string
-    description?: string
-    rank?: number
+    icon?: string | null
+    description?: string | null
+    rank?: number | null
 }
