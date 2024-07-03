@@ -33,13 +33,11 @@ const categoryFormSchema = z.object({
     .max(30, {
       message: "name must not be longer than 30 characters.",
     }),
-  icon: z.string(), // .url({ message: "Please enter a valid URL." }),
-  description: z.string().max(160).min(4),
-  rank: z.string()
-}).partial();
-const requiredName = categoryFormSchema.required({
-  name: true,
+  icon: z.string().optional(), // .url({ message: "Please enter a valid URL." }),
+  description: z.string().max(160).min(4).optional(),
+  rank: z.number().optional()
 });
+
 
 type CategoryFormValues = z.infer<typeof categoryFormSchema>
 export interface AddCategoryProps {
@@ -53,13 +51,7 @@ const AddCategory: FC<AddCategoryProps> = ({navItems}) => {
     
   })
 
-  // State to manage the list of todo items
-  // const [categoryItems, setCategoryItems] = useState<CategoryInterface[]>([]);
-
-  // Function to create a new todo item
   const createCategory = (params: Omit<CategoryInterface, "id">) => {
-    // const id = +new Date();
-    debugger
     const id = (navItems.at(-1)?.id || 0) + 1;
     const addItem = {
       id,
@@ -71,12 +63,11 @@ const AddCategory: FC<AddCategoryProps> = ({navItems}) => {
     navItems.push(addItem)
   };
 
-
-
   function onSubmit(data: CategoryFormValues) {
-    createCategory(omit(data, 'id'));
+    const parsedData = categoryFormSchema.parse(data);
+    createCategory(parsedData);
   }
-  // Rendering the AddTodo component
+
   return (
     <Popover>
       <PopoverTrigger>

@@ -2,10 +2,7 @@
 export interface CategoryInterface {
     id: number
     name: string
-    icon: string
-    description: string
-    rank: number
-    // createTime: string
-    // updateTime: string
-    // links: Link[]
+    icon?: string
+    description?: string
+    rank?: number
 }
