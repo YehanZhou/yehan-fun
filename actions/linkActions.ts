@@ -38,7 +38,7 @@ export const getCategories = async () => {
     return data;
 };
 
-export const addCategory = async (params: CategoryInterface) => {
+export const addCategory = async (params: Omit<CategoryInterface, 'links'>) => {
   await db.insert(category).values(params);
   revalidatePath("/");
 };

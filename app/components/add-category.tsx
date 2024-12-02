@@ -50,7 +50,7 @@ const AddCategory: FC<AddCategoryProps> = ({navItems}) => {
     
   })
 
-  const createCategory = (params: Omit<CategoryInterface, "id">) => {
+  const createCategory = (params: Omit<CategoryInterface, "id" | "links">) => {
     const id = (navItems.at(-1)?.id || 0) + 1;
     const addItem = {
       id,
