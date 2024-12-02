@@ -8,7 +8,7 @@ export interface LinkInterface {
     rank?: number | null;
     // public: boolean
     // status: number
-    categoryId: number
+    categoryId: number | null;
 }
 
 export interface NavItem {

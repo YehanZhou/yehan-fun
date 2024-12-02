@@ -16,7 +16,6 @@ export const category = pgTable("category", {
   rank: integer("rank"),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
-  // links: categoryRelations()
 });
 
 export const categoryRelations = relations(category, ({many}) => ({
@@ -32,14 +31,12 @@ export const link = pgTable("link", {
   rank: integer("rank"),
   createTime: time("create_time").default("now()").notNull(),
   updateTime: time("update_time").default("now()").notNull(),
-  // public: boolean("public").default(false).notNull(),
-  // status: integer("status").default(1).notNull(),
-  categoryId: integer("category_id").notNull().references(()=>category.id),
+	categoryId: integer('category_id'),
 });
 
 export const linkRelations = relations(link, ({ one }) => ({
   author: one(category, {
-    fields: [link.id],
+    fields: [link.categoryId],
     references: [category.id],
   }),
 }));

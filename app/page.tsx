@@ -2,14 +2,17 @@ import { SiteHeader } from "./components/site-header"
 import { SiteFooter } from "./components/site-footer"
 import { LinkContent } from "./components/link-content"
 import { Sidebar } from "./components/sidebar"
-import { getCategories, getLinksByCategoryId } from "@/actions/linkActions";
+import { getCategories, getCateLinks } from "@/actions/linkActions";
 import { CategoryInterface } from "@/types/category"
 
 
 export const revalidate = 24 * 60 * 60;
 
 export default async function IndexPage() {
-  const navResources: CategoryInterface[] = await getCategories();
+  const navResources: CategoryInterface[] = await getCateLinks();
+  
+  // navResources.forEach(item => console.log(item.links))
+  
   const navItems = navResources.map((n) => {
     return {
       name: n.name,

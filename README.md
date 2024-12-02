@@ -20,3 +20,9 @@ npx create-next-app -e https://github.com/shadcn/next-template
 ## License
 
 Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+
+
+同步schema到数据库
+```shell
+npx drizzle-kit push:pg
+```

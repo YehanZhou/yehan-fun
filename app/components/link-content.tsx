@@ -21,7 +21,7 @@ export function LinkItem({ link }: { link: LinkInterface }) {
                     width={40}
                     height={40}
                   /> 
-                : <span className="h-full w-full rounded-full bg-purple-500 text-center font-bold leading-10">{ link.name.slice(0, 1) }</span>
+                : <span className="h-full w-full rounded-full bg-purple-500 text-center font-bold leading-10">{ link.name?.slice(0, 1) }</span>
             }
           </div>
           <span className="text-xl font-bold text-primary">{ link.name }</span>
@@ -46,11 +46,11 @@ export function LinkContent({ navResources }: { navResources: CategoryInterface[
                   <h1 className="mb-2 text-2xl font-bold text-primary/80 sm:text-3xl">{ category.name }</h1>
                 </div>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-                  {/* {
-                    category.links.map((link: LinkInterface) => (
+                  {
+                    category.links.map!((link: LinkInterface) => (
                       <LinkItem link={link} key={link.id} />
                     ))
-                  } */}
+                  }
                 </div>
               </div>
             )

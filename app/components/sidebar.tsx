@@ -66,20 +66,20 @@ export function Sidebar({ className, navItems }: SidebarProps) {
                                     width={20}
                                     height={20}
                                   /> 
-                                : <span className="block h-5 w-5 rounded-full bg-purple-500 text-center font-bold leading-5 text-white">{ category.name.slice(0, 1) }</span>
+                                : <span className="block h-5 w-5 rounded-full bg-purple-500 text-center font-bold leading-5 text-white">{ category.name?.slice(0, 1) }</span>
                             }
                           </div>
                           <div className="flex flex-1 items-center justify-between truncate">
                             <span>{category.name}</span>
-                            <Cross2Icon onClick={() => deleteCategory(category.id)}/>
+                            {/* <Cross2Icon onClick={() => deleteCategory(category.id)}/> */}
                           </div>
                         </div>
                       </div>
                     )
                   })}
-                  <div className="flex justify-center">
+                  {/* <div className="flex justify-center">
                     <AddCategory navItems={navItems}/>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
