@@ -4,15 +4,6 @@ import {revalidatePath} from "next/cache";
 import db from "@/db/drizzle";
 import {category,link} from "@/db/schema";
 import { CategoryInterface } from "@/types/category";
-import { drizzle } from 'drizzle-orm/neon-serverless';
-// import { LinkInterface } from "@/types/link";
-// const db = drizzle({ schema });
-
-// export const getLinksByCategoryId = async (categoryId:number) => {
-//   const links: LinkInterface[] = await db.select().from(link).orderBy(asc(link.id)).where(eq(link.categoryId, categoryId));
-//   return links;
-// }
-// const db = drizzle({ schema });
 
 export const addLink = async (params: any) => {
   await db.insert(link).values(params);
@@ -66,8 +57,8 @@ export const getCateLinks = async () => {
   });
   // 对 links 进行排序
   data.forEach(category => {
-    console.log('links=', category.links)
     category.links.sort((a, b) => (a.rank || 0) - (b.rank || 0));
   });
+  console.log('data=', data)
   return data;
 };
