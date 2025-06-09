@@ -1,10 +1,13 @@
-import { LinkInterface } from "./link"
-
 export interface CategoryInterface {
-    id: number
-    name: string
-    icon?: string | null
-    description?: string | null
-    rank?: number | null
-    links: LinkInterface[]
+  id: string
+  name: string
+  icon?: string
+  links?: LinkInterface[]
+}
+
+export interface LinkInterface {
+  id: string
+  title: string
+  url: string
+  categoryId: string
 }
